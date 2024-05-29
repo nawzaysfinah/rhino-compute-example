@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // change mesh material
         object.traverse(child => {
           if (child.isMesh) {
-            child.material = new THREE.MeshNormalMaterial({ wireframe: true})
+            child.material = new THREE.MeshNormalMaterial({ ghosted: true})
           }
         }, false)
   ///////////////////////////////////////////////////////////////////////////
