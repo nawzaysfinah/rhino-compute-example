@@ -9,8 +9,8 @@ let data = {}
 data.definition = "BranchNodeRnd.gh"
 data.inputs = {
     'radius':null,
-    'length':null,
-    'count':null,
+    'height':null,
+    'offset':null,
 
 }
 
@@ -19,16 +19,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Set up sliders
     const radius_slider = document.getElementById('radius');
-    const length_slider = document.getElementById('length');
-    const count_slider = document.getElementById('count');
+    const height_slider = document.getElementById('height');
+    const offset_slider = document.getElementById('offset');
     // const height_slider = document.getElementById('height');
 
     radius_slider.addEventListener('mouseup', onSliderChange, false);
     radius_slider.addEventListener('touchend', onSliderChange, false);
-    length_slider.addEventListener('mouseup', onSliderChange, false);
-    length_slider.addEventListener('touchend', onSliderChange, false);
-    count_slider.addEventListener('mouseup', onSliderChange, false);
-    count_slider.addEventListener('touchend', onSliderChange, false);
+    height_slider.addEventListener('mouseup', onSliderChange, false);
+    height_slider.addEventListener('touchend', onSliderChange, false);
+    offset_slider.addEventListener('mouseup', onSliderChange, false);
+    offset_slider.addEventListener('touchend', onSliderChange, false);
     // height_slider.addEventListener('mouseup', onSliderChange, false);
     // height_slider.addEventListener('touchend', onSliderChange, false);
 
@@ -59,14 +59,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     compute();
 
     async function compute() {
-        const param1 = new RhinoCompute.Grasshopper.DataTree('Length');
-        param1.append([0], [length_slider.valueAsNumber]);
+        const param1 = new RhinoCompute.Grasshopper.DataTree('Height');
+        param1.append([0], [height_slider.valueAsNumber]);
 
         const param2 = new RhinoCompute.Grasshopper.DataTree('Radius');
         param2.append([0], [radius_slider.valueAsNumber]);
 
-        const param3 = new RhinoCompute.Grasshopper.DataTree('Count');
-        param3.append([0], [count_slider.valueAsNumber]);
+        const param3 = new RhinoCompute.Grasshopper.DataTree('Offset');
+        param3.append([0], [offset_slider.valueAsNumber]);
 
 
         // add all params to an array & clear values
@@ -151,13 +151,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         // change mesh material
         object.traverse(child => {
           if (child.isMesh) {
-            child.material = new THREE.MeshNormalMaterial({ ghosted: true})
+            child.material = new THREE.MeshNormalMaterial({ wireframe: false})
           }
         }, false)
   ///////////////////////////////////////////////////////////////////////////
   
         // clear objects from scene. do this here to avoid blink
-        scene.traverse(child => {
+        scene.traverse(child => {o  
             if (!child.isLight) {
                 scene.remove(child)
             }
@@ -233,9 +233,11 @@ function decodeItem(item) {
         // create a scene and a camera
         scene = new THREE.Scene();
         scene.background = new THREE.Color(1, 1, 1);
-        camera = new THREE.PerspectiveCamera(25, window.innerWidth / window.innerHeight, 1, 1000);
-        camera.position.y = -30
-        camera.position.z = 30
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+        // const camera = new THREE.OrthographicCamera( window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, 1, 1000 );
+        camera.position.y = 200
+        camera.position.x = 200
+        camera.position.z = 200
 
         // create renderer and add to HTML
         renderer = new THREE.WebGLRenderer({ antialias: true });
