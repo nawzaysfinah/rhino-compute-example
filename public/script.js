@@ -1,10 +1,10 @@
 // Import libraries
 import * as THREE from 'three';
-import { OrbitControls } from '../node_modules/three/examples/jsm/controls/OrbitControls.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import rhino3dm from 'rhino3dm';
 import { RhinoCompute } from 'rhinocompute';
-import { Rhino3dmLoader } from '../node_modules/three/examples/jsm/loaders/3DMLoader.js';
-import { STLExporter } from '../node_modules/three/examples/jsm/exporters/STLExporter.js';
+import { Rhino3dmLoader } from 'three/examples/jsm/loaders/3DMLoader.js';
+import { STLExporter } from 'three/examples/jsm/exporters/STLExporter.js';
 
 let data = {}
 data.definition = "BranchNodeRnd.gh"
