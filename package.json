@@ -12,6 +12,7 @@
   "dependencies": {
     "compute-rhino3d": "^0.13.0-beta",
     "express": "^4.19.2",
-    "rhino3dm": "^8.6.1"
+    "rhino3dm": "^8.6.1",
+    "three": "^0.165.0"
   }
 }

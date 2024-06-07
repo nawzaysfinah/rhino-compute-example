@@ -1,9 +1,10 @@
 // Import libraries
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { OrbitControls } from '../node_modules/three/examples/jsm/controls/OrbitControls.js';
 import rhino3dm from 'rhino3dm';
 import { RhinoCompute } from 'rhinocompute';
-import { Rhino3dmLoader } from 'three/examples/jsm/loaders/3DMLoader'
+import { Rhino3dmLoader } from '../node_modules/three/examples/jsm/loaders/3DMLoader.js';
+import { STLExporter } from '../node_modules/three/examples/jsm/exporters/STLExporter.js';
 
 let data = {}
 data.definition = "BranchNodeRnd.gh"
@@ -221,16 +222,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         const timeStr = now.toTimeString().split(' ')[0].replace(/:/g, '-');
         const dateTimeStr = `${dateStr}_${timeStr}`;
 
-        const filename = `rhinoFile_${dateTimeStr}.3dm`;
-        let buffer = doc.toByteArray();
-        saveByteArray(filename, buffer, 7);
+        const filename = `rhinoFile_${dateTimeStr}.stl`;
+
+        const exporter = new STLExporter();
+        const stlString = exporter.parse(scene, { binary: false });
+        saveString(stlString, filename);
     }
 
-    function saveByteArray(fileName, byte) {
-        let blob = new Blob([byte], { type: 'application/octet-stream' });
-        let link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = fileName;
+    function saveString(text, filename) {
+        const blob = new Blob([text], { type: 'text/plain' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
         link.click();
     }
 
