@@ -8,9 +8,9 @@ import { Rhino3dmLoader } from 'three/examples/jsm/loaders/3DMLoader'
 let data = {}
 data.definition = "BranchNodeRnd.gh"
 data.inputs = {
-    'radius':null,
-    'height':null,
-    'offset':null,
+    'radius': null,
+    'height': null,
+    'offset': null,
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -216,8 +216,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // download button handler
     function download() {
+        const now = new Date();
+        const dateStr = now.toISOString().split('T')[0];
+        const timeStr = now.toTimeString().split(' ')[0].replace(/:/g, '-');
+        const dateTimeStr = `${dateStr}_${timeStr}`;
+
+        const filename = `rhinoFile_${dateTimeStr}.3dm`;
         let buffer = doc.toByteArray();
-        saveByteArray('rhinoFile.3dm', buffer, 7);
+        saveByteArray(filename, buffer, 7);
     }
 
     function saveByteArray(fileName, byte) {
